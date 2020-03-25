@@ -3,14 +3,36 @@
              <div id="firstTab" class="tab" *ngIf="currentTab===0">
                  <h2>Personal Information</h2>
                      <input formControlName="email" id="email" placeholder="insert email address">
+                     <div class="help-block" *ngIf="profileForm.get('email').errors?.required && profileForm.get('email').touched">
+                         <span class="text-danger"> Required!</span>
+                     </div>
                      <input formControlName="username" id="username" placeholder="insert username">
-                     <input formControlName="country" id="country" placeholder="insert country">
+                     <div class="help-block" *ngIf="profileForm.get('username').errors?.required && profileForm.get('username').touched">
+                         <span class="text-danger"> Required!</span>
+                     </div>
+                        <input formControlName="name" id="name" placeholder="insert username">
+                     <div class="help-block" *ngIf="profileForm.get('name').errors?.required && profileForm.get('name').touched">
+                         <span class="text-danger"> Required!</span>
+                     </div>
+                 <select formControlName="country" id="country">
+                     <option value="Indonesia">Indonesia</option>
+                     <option value="Germany">Germany</option>
+                 </select>
+                     <div class="help-block" *ngIf="profileForm.get('country').errors?.required && profileForm.get('country').touched">
+                         <span class="text-danger"> Required!</span>
+                     </div>
                      <input type="number" formControlName="age"  id="age" placeholder="insert age">
+                     <div class="help-block" *ngIf="profileForm.get('age').errors?.required && profileForm.get('age').touched">
+                         <span class="text-danger"> Required!</span>
+                     </div>
                      <label >Gender</label><br>
                      <input type="radio" formControlName="gender" id="male" name="gender" value="male">
                      <label for="male">Male</label><br>
                      <input type="radio" formControlName="gender" id="female" name="gender" value="female">
                      <label for="female">Female</label><br>
+                     <div class="help-block" *ngIf="profileForm.get('gender').errors?.required && profileForm.get('gender').touched">
+                         <span class="text-danger"> Required!</span>
+                     </div>
                  <button (click)="nextTab(1)">Next</button>
              </div>
             <div id="secondTab" class="tab" *ngIf="currentTab===1">
@@ -42,8 +64,8 @@
                 <p>{{profileForm.get('age').value}}</p><br>
                 <p>Gender :</p>
                 <p>{{profileForm.get('gender').value}}</p><br>
-                <ul *ngIf="let skill of profileForm.get('skills').value; let  i = index;">
-                    <li>Skill Name:{{skill.get('skillname').value}} || Skill Score{{skill.get('score').value}}</li>
+                <ul *ngFor="let skill of skills.controls; let i=index">
+                    {{skills.value}}
                 </ul>
 
                 <button (click)="prevTab(2)" class="previous round">Previous</button>
