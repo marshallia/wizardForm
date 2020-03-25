@@ -1,50 +1,52 @@
-<div class="container d-flex h-100 flex-column">
-    <div class="row justify-content-center">
-        <form action="" method="post" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input formControlName="name" class="form-control" id="name" placeholder="insert name">
+<div>
+        <form id="regForm" action="" method="post" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+             <div id="firstTab" class="tab" *ngIf="currentTab===0">
+                 <h2>Personal Information</h2>
+                     <input formControlName="email" id="email" placeholder="insert email address">
+                     <input formControlName="username" id="username" placeholder="insert username">
+                     <input formControlName="country" id="country" placeholder="insert country">
+                     <input type="number" formControlName="age"  id="age" placeholder="insert age">
+                     <label >Gender</label><br>
+                     <input type="radio" formControlName="gender" id="male" name="gender" value="male">
+                     <label for="male">Male</label><br>
+                     <input type="radio" formControlName="gender" id="female" name="gender" value="female">
+                     <label for="female">Female</label><br>
+                 <button (click)="nextTab(1)">Next</button>
+             </div>
+            <div id="secondTab" class="tab" *ngIf="currentTab===1">
+                <h2>Skill</h2>
+                <div *ngFor="let skill of skills.controls; let i=index">
+                    <label>Skill {{i+1}}</label><br>
+                    <div [formGroup]="skill">
+                            <label for="skillname">Name</label>
+                            <input type="text" formControlName="skillname" id="skillname" placeholder="Skill Name">
+                            <label for="skillScore">Score</label>
+                            <input type="text" formControlName="score" id="skillScore" placeholder="Skill Score">
+                        <button (click)="remove(i)">X</button>
+                    </div>
+                </div><br>
+                <button (click)="add()">Add</button><br>
+                <button (click)="prevTab(1)" class="previous round">Previous</button>
+                <button (click)="nextTab(2)" class="next round">Next Tab</button>
             </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input formControlName="email" class="form-control" id="email" placeholder="insert email address">
+            <div id="thirdTab" class="tab" *ngIf="currentTab===2">
+                <p>Name :</p>
+                <p>{{profileForm.get('name').value}}</p><br>
+                <p>Email :</p>
+                <p>{{profileForm.get('email').value}}</p><br>
+                <p>Username :</p>
+                <p>{{profileForm.get('username').value}}</p><br>
+                <p>Country :</p>
+                <p>{{profileForm.get('country').value}}</p><br>
+                <p>Age :</p>
+                <p>{{profileForm.get('age').value}}</p><br>
+                <p>Gender :</p>
+                <p>{{profileForm.get('gender').value}}</p><br>
+                <ul *ngIf="let skill of profileForm.get('skills').value; let  i = index;">
+                    <li>Skill Name:{{skill.get('skillname').value}} || Skill Score{{skill.get('score').value}}</li>
+                </ul>
+
+                <button (click)="prevTab(2)" class="previous round">Previous</button>
             </div>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input formControlName="username" class="form-control" id="username" placeholder="insert username">
-            </div>
-            <div class="form-group">
-                <label for="country">Country</label>
-                <input formControlName="country" class="form-control" id="country" placeholder="insert country">
-            </div>
-            <div class="form-group">
-                <label for="age">Age</label>
-                <input type="number" formControlName="age" id="age" placeholder="insert age">
-            </div>
-            <div class="form-group">
-                <label >Gender</label><br>
-                <input type="radio" formControlName="gender" id="male" name="gender" value="male">
-                <label for="male">Male</label><br>
-                <input type="radio" formControlName="gender" id="female" name="gender" value="female">
-                <label for="female">Female</label><br>
-            </div>
-            <div *ngFor="let skill of skills.controls; let i=index">
-                <label>Skill {{i+1}}</label>
-                <div [formGroup]="skill">
-                <div class="form-group">
-                    <label for="skillname">Name</label>
-                    <input type="text" formControlName="skillname" class="form-control" id="skillname" placeholder="Skill Name">
-                </div>
-                <div class="form-group">
-                    <label for="skillScore">Score</label>
-                    <input type="text" formControlName="score" class="form-control" id="skillScore" placeholder="Skill Score">
-                </div>
-                <button (click)="remove(i)">X</button>
-                </div>
-            </div>
-            <button (click)="add()">Add</button>
-            <button type="submit" class="btn btn-primary">submit</button>
         </form>
-    </div>
 </div>
-{{profileForm.value | json}}

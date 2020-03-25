@@ -7,6 +7,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angul
   styleUrls: ['./profile-component.component.css']
 })
 export class ProfileComponentComponent implements OnInit {
+    currentTab = 0;
     profileForm = this.form.group({
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -31,6 +32,14 @@ export class ProfileComponentComponent implements OnInit {
    constructor(private form: FormBuilder) { }
 
     ngOnInit(): void {}
+
+    nextTab(i: number) {
+        this.currentTab = i;
+    }
+
+    prevTab(i: number) {
+        this.currentTab = i - 1;
+    }
 
     add() {
       this.skills.push(this.skill);
